@@ -1,0 +1,1104 @@
+:root {
+  --ink: #1a1a1a;
+  --muted: #6a6a6a;
+  --bg: #ffffff;
+  --bg-alt: #fafafa;
+  --border: #e5e5e7;
+  --accent: #4338ca;
+  --accent-tint: #eef2ff;
+  --accent-hover: #3730a3;
+  --serif: Charter, 'Source Serif Pro', 'Iowan Old Style', Georgia, Cambria, 'Times New Roman', Times, serif;
+  --sans: Inter, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --mono: 'SF Mono', SFMono-Regular, Menlo, Consolas, monospace;
+  --content-w: 870px;   /* ONE width: text, rules, figures and video all share it */
+  --wide-w: 1240px;
+  --sidebar-w: 220px;
+  --sidebar-gap: 48px;
+  --nav-h: 56px;
+}
+
+* { box-sizing: border-box; }
+
+html { scroll-behavior: smooth; scroll-padding-top: calc(var(--nav-h) + 12px); }
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--ink);
+  font-family: var(--serif);
+  font-size: 17px;
+  line-height: 1.65;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ============ Navigation ============ */
+#topnav {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  background: rgba(255,255,255,0.92);
+  backdrop-filter: saturate(180%) blur(10px);
+  -webkit-backdrop-filter: saturate(180%) blur(10px);
+  border-bottom: 1px solid var(--border);
+  height: var(--nav-h);
+}
+.nav-inner {
+  max-width: var(--wide-w);
+  margin: 0 auto;
+  padding: 0 24px;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+  font-family: var(--sans);
+  font-size: 14px;
+}
+.nav-title {
+  font-weight: 700;
+  color: var(--ink);
+  text-decoration: none;
+  letter-spacing: -0.01em;
+  font-size: 15px;
+}
+.nav-actions {
+  display: flex;
+  gap: 8px;
+}
+
+/* ============ Page grid: sidebar + main ============ */
+.page {
+  max-width: var(--wide-w);
+  margin: 0 auto;
+  padding: 0 24px;
+  display: grid;
+  grid-template-columns: var(--sidebar-w) minmax(0, 1fr);
+  column-gap: var(--sidebar-gap);
+  align-items: flex-start;
+}
+
+/* ============ Sidebar TOC ============ */
+#sidebar {
+  position: sticky;
+  top: var(--nav-h);
+  align-self: start;
+  max-height: calc(100vh - var(--nav-h));
+  overflow-y: auto;
+  padding: 56px 0 32px;
+  font-family: var(--sans);
+  font-size: 13.5px;
+}
+.sidebar-heading {
+  margin: 0 0 12px;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+.toc,
+.toc ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.toc li { margin: 0; }
+.toc a {
+  display: block;
+  padding: 5px 12px;
+  color: var(--muted);
+  text-decoration: none;
+  border-left: 2px solid transparent;
+  line-height: 1.4;
+  transition: color 0.15s, border-color 0.15s, background 0.15s;
+}
+.toc a:hover { color: var(--ink); }
+.toc a.active {
+  color: var(--accent);
+  border-left-color: var(--accent);
+  background: var(--accent-tint);
+  font-weight: 500;
+}
+.toc ul {
+  margin: 2px 0 2px 0;
+}
+.toc ul a {
+  padding-left: 24px;
+  font-size: 12.5px;
+}
+
+/* ============ Buttons ============ */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 14px;
+  border-radius: 8px;
+  font-family: var(--sans);
+  font-size: 14px;
+  font-weight: 500;
+  text-decoration: none;
+  border: 1px solid transparent;
+  transition: background 0.15s, color 0.15s, border-color 0.15s;
+  white-space: nowrap;
+}
+.btn-primary {
+  background: var(--accent);
+  color: #fff;
+}
+.btn-primary:hover { background: var(--accent-hover); }
+.btn-secondary {
+  background: var(--bg);
+  color: var(--ink);
+  border-color: var(--border);
+}
+.btn-secondary:hover { border-color: var(--accent); color: var(--accent); }
+.btn-ghost {
+  background: transparent;
+  color: var(--muted);
+}
+.btn-ghost:hover { color: var(--accent); }
+
+/* ============ Main content column ============ */
+/* One width for everything: text, section rules, figures, video strips and
+   charts all share --content-w, so nothing overhangs and nothing hugs. main is
+   centred inside its grid column when the column is wider. */
+main {
+  /* width + justify-self, NOT auto margins: auto margins make a grid item
+     shrink-to-fit, so it sizes to its min-content and overflows a narrow
+     viewport. This centred main in its column on desktop while pushing the
+     page to ~800px on a phone. */
+  width: 100%;
+  max-width: var(--content-w);
+  justify-self: center;
+  padding: 48px 0 96px;
+  min-width: 0;
+}
+
+/* ============ Hero ============ */
+.hero {
+  text-align: center;
+  padding: 24px 0 32px;
+}
+.hero h1 {
+  font-family: var(--serif);
+  font-weight: 600;
+  font-size: 34px;
+  line-height: 1.25;
+  letter-spacing: -0.01em;
+  margin: 0 0 24px;
+}
+.hero .authors {
+  font-family: var(--sans);
+  font-size: 16px;
+  color: var(--ink);
+  line-height: 1.7;
+  /* carries the gap to the buttons now that no affiliation line follows */
+  margin: 0 0 28px;
+}
+.hero .authors a {
+  color: var(--ink);
+  text-decoration: none;
+  border-bottom: 1px solid var(--border);
+  transition: color 0.15s, border-color 0.15s;
+}
+.hero .authors a:hover {
+  color: var(--accent);
+  border-bottom-color: var(--accent);
+}
+.hero-actions {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+/* ============ Sections & headings ============ */
+section { margin: 88px 0; scroll-margin-top: calc(var(--nav-h) + 12px); }
+section > :first-child { margin-top: 0; }
+
+h2 {
+  font-family: var(--sans);
+  font-weight: 600;
+  font-size: 24px;
+  letter-spacing: -0.01em;
+  margin: 0 0 28px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid var(--border);
+}
+h3 {
+  font-family: var(--sans);
+  font-weight: 600;
+  font-size: 20px;      /* must sit clearly above the 17-18px body copy */
+  color: var(--ink);
+  margin: 72px 0 16px;  /* the air is what separates one subsection from the next */
+  letter-spacing: -0.005em;
+}
+/* a subsection heading that opens a section needs no extra gap above it */
+h2 + h3,
+.lede + h3 { margin-top: 32px; }
+p { margin: 0 0 16px; }
+.lede { color: var(--muted); font-style: italic; }
+
+.hl { color: var(--accent); }
+
+/* ============ Figures ============ */
+figure {
+  margin: 24px 0 32px;
+  text-align: center;
+}
+figure img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 6px;
+}
+figure.teaser {
+  margin: 8px 0 40px;
+}
+figure.teaser img {
+  width: 100%;
+}
+figure.arch img {
+  max-width: 92%;
+}
+figure.side-fig img {
+  max-width: 60%;
+}
+figcaption {
+  font-family: var(--sans);
+  font-size: 13.5px;
+  color: var(--muted);
+  line-height: 1.55;
+  text-align: left;
+  margin-top: 10px;
+  padding: 0 4px;
+}
+figcaption strong { color: var(--ink); }
+
+/* ============ Rollout captions & video frames ============ */
+.rollout-caption {
+  font-family: var(--sans);
+  font-size: 13.5px;
+  color: var(--muted);
+  line-height: 1.55;
+  text-align: left;
+  margin: 12px 4px 0;
+}
+.rollout-caption strong { color: var(--ink); }
+.rollout-caption code {
+  font-family: var(--mono);
+  font-size: 12.5px;
+  background: var(--bg-alt);
+  border: 1px solid var(--border);
+  border-radius: 3px;
+  padding: 1px 5px;
+}
+.video-frame {
+  position: relative;
+  background: #0f172a;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  overflow: hidden;
+  aspect-ratio: 1 / 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.video-frame video {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  image-rendering: pixelated;
+  pointer-events: none;
+  -webkit-user-select: none;
+  user-select: none;
+}
+.rollout-meta {
+  margin-top: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  font-family: var(--sans);
+  font-size: 13.5px;
+  text-align: center;
+}
+.rollout-label {
+  color: var(--ink);
+  font-weight: 500;
+}
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 2px 8px;
+  border-radius: 999px;
+  font-size: 12px;
+  font-weight: 500;
+  line-height: 1.4;
+}
+.badge-success {
+  background: #dcfce7;
+  color: #166534;
+  border: 1px solid #86efac;
+}
+.badge-failure {
+  background: #fee2e2;
+  color: #991b1b;
+  border: 1px solid #fca5a5;
+}
+
+/* ============ Equations ============ */
+.eq {
+  overflow-x: auto;
+  padding: 8px 0;
+  margin: 8px 0 12px;
+}
+.eq-note {
+  margin: 0 0 22px;
+  font-size: 0.92em;
+  color: var(--muted);
+}
+
+/* ============ Lists ============ */
+.tldr-list {
+  padding-left: 20px;
+  margin: 0;
+}
+.tldr-list li { margin-bottom: 12px; }
+.tldr-list li::marker { color: var(--accent); font-weight: 700; }
+
+/* ============ Algorithm block (paper-style pseudocode) ============ */
+.algorithm {
+  margin: 24px 0 32px;
+  padding: 12px 6px 14px;
+  border-top: 1.8px solid var(--ink);
+  border-bottom: 1.8px solid var(--ink);
+  background: var(--bg);
+  font-family: var(--serif);
+  font-size: 14.5px;
+  line-height: 1.75;
+  overflow-x: auto;
+  text-align: left;
+}
+.algo-header {
+  padding: 0 6px 8px;
+  margin-bottom: 8px;
+  border-bottom: 1px solid var(--ink);
+  font-family: var(--sans);
+  font-size: 13.5px;
+  color: var(--ink);
+  text-align: left;
+}
+.algo-header .algo-sep { color: var(--muted); margin: 0 4px; }
+.algo-body {
+  counter-reset: algoline;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+.algo-body > li {
+  position: relative;
+  padding-left: 38px;
+  padding-right: 6px;
+  min-height: 1.75em;
+}
+.algo-body > li::before {
+  counter-increment: algoline;
+  content: counter(algoline) ":";
+  position: absolute;
+  left: 0;
+  width: 28px;
+  text-align: right;
+  color: var(--muted);
+  font-family: var(--mono);
+  font-size: 11px;
+  top: 0.35em;
+}
+.algo-body .ind-1 { padding-left: 62px; }
+.algo-body .ind-2 { padding-left: 86px; }
+.algo-body .ind-3 { padding-left: 110px; }
+.algo-body .kw {
+  font-family: var(--sans);
+  font-weight: 700;
+  font-size: 13px;
+  color: var(--ink);
+  letter-spacing: 0.01em;
+}
+.algo-body .cmt {
+  color: var(--muted);
+  font-style: italic;
+  font-family: var(--serif);
+  font-size: 13.5px;
+}
+.algo-body .cmt .katex { color: var(--muted); }
+
+/* ============ Results table ============ */
+.table-wrap {
+  overflow-x: auto;
+  margin: 8px 0 24px;
+}
+table.results {
+  width: 100%;
+  border-collapse: collapse;
+  font-family: var(--sans);
+  font-size: 14.5px;
+}
+table.results th,
+table.results td {
+  padding: 10px 12px;
+  text-align: right;
+  border-bottom: 1px solid var(--border);
+}
+table.results th:first-child,
+table.results td:first-child {
+  text-align: left;
+}
+table.results thead th {
+  font-weight: 600;
+  color: var(--muted);
+  border-bottom: 1.5px solid var(--ink);
+}
+table.results .hl-col {
+  background: var(--accent-tint);
+  color: var(--ink);
+}
+table.results .hl-col-online {
+  background: #dee1fb;
+}
+table.results thead .hl-col {
+  color: var(--accent);
+}
+table.results tr.mean-row td {
+  border-top: 1.5px solid var(--ink);
+  border-bottom: none;
+  font-weight: 600;
+}
+table.results td.muted { color: var(--muted); font-weight: 400; }
+
+/* Highlighted cell state (driven by bar hover) */
+table.results td.highlight {
+  outline: 2px solid var(--accent);
+  outline-offset: -2px;
+  background: #fff;
+  color: var(--accent);
+  font-weight: 700;
+  transition: background 0.12s, color 0.12s;
+}
+
+/* ============ Results bar chart ============ */
+.chart-fig {
+  margin: 8px 0 20px;
+}
+.chart-panels {
+  display: flex;
+  gap: 20px;
+  align-items: stretch;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+.chart-panel {
+  flex: 1 1 320px;
+  min-width: 280px;
+  max-width: 400px;
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 6px 8px 8px;
+}
+.chart-svg {
+  width: 100%;
+  height: auto;
+  display: block;
+  font-family: var(--sans);
+}
+.chart-title {
+  font-size: 13px;
+  font-weight: 600;
+  fill: var(--ink);
+}
+.chart-axis-label {
+  font-size: 11px;
+  fill: var(--muted);
+}
+.chart-tick {
+  font-size: 10.5px;
+  fill: var(--muted);
+}
+.chart-grid {
+  stroke: var(--border);
+  stroke-width: 1;
+  shape-rendering: crispEdges;
+}
+.chart-baseline {
+  stroke: var(--ink);
+  stroke-width: 1;
+  shape-rendering: crispEdges;
+}
+.chart-bar {
+  cursor: pointer;
+  transition: fill 0.12s, opacity 0.12s;
+}
+.chart-bar.is-hover,
+.chart-bar:hover {
+  fill: var(--bar-hover, var(--accent-hover));
+}
+.chart-bar-value {
+  font-size: 11px;
+  font-weight: 600;
+  fill: var(--ink);
+  pointer-events: none;
+}
+.chart-x-label {
+  font-size: 11px;
+  fill: var(--muted);
+  pointer-events: none;
+}
+
+/* ============ Chart tooltip ============ */
+#chart-tooltip {
+  position: absolute;
+  pointer-events: none;
+  background: #1a1a1a;
+  color: #fff;
+  font-family: var(--sans);
+  font-size: 12.5px;
+  line-height: 1.35;
+  padding: 6px 10px;
+  border-radius: 6px;
+  box-shadow: 0 4px 14px rgba(0,0,0,0.18);
+  opacity: 0;
+  transform: translateY(4px);
+  transition: opacity 0.12s, transform 0.12s;
+  z-index: 60;
+  white-space: nowrap;
+}
+#chart-tooltip.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+#chart-tooltip .tt-label { font-weight: 600; color: #a5b4fc; font-size: 12px; }
+#chart-tooltip .tt-value { font-family: var(--mono); font-size: 13.5px; }
+
+/* ============ BibTeX ============ */
+.bibtex-wrap {
+  position: relative;
+  background: var(--bg-alt);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  padding: 16px 18px;
+  padding-right: 80px;
+}
+.bibtex-wrap pre {
+  margin: 0;
+  font-family: var(--mono);
+  font-size: 13px;
+  line-height: 1.55;
+  overflow-x: auto;
+  white-space: pre;
+}
+.copy-btn {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  padding: 5px 12px;
+  font-family: var(--sans);
+  font-size: 12.5px;
+  color: var(--muted);
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: 5px;
+  cursor: pointer;
+  transition: color 0.15s, border-color 0.15s;
+}
+.copy-btn:hover { color: var(--accent); border-color: var(--accent); }
+.copy-btn.copied { color: var(--accent); border-color: var(--accent); }
+
+/* ============ Footer ============ */
+footer {
+  margin-top: 80px;
+  padding-top: 24px;
+  border-top: 1px solid var(--border);
+  text-align: center;
+  font-family: var(--sans);
+  font-size: 13.5px;
+  color: var(--muted);
+}
+footer a { color: var(--muted); text-decoration: none; }
+footer a:hover { color: var(--accent); }
+.footer-note { margin-top: 4px; font-size: 12.5px; }
+
+/* ============ Responsive ============ */
+@media (max-width: 960px) {
+  .page {
+    /* minmax(0, 1fr), not 1fr: a plain 1fr track takes its automatic minimum
+       from the content's min-content width, so one unbreakable child pushes the
+       whole page wider than the viewport. */
+    grid-template-columns: minmax(0, 1fr);
+    column-gap: 0;
+  }
+  #sidebar {
+    position: static;
+    max-height: none;
+    overflow: visible;
+    padding: 24px 0 0;
+    border-bottom: 1px solid var(--border);
+  }
+  .sidebar-inner {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 10px 16px;
+    padding-bottom: 16px;
+  }
+  .sidebar-heading { display: none; }
+  .toc {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 4px 10px;
+  }
+  .toc ul { display: none; }
+  .toc a {
+    padding: 4px 10px;
+    border-left: none;
+    border-radius: 6px;
+  }
+  .toc a.active { border-left: none; }
+  main { padding: 32px 0 64px; }
+}
+
+@media (max-width: 720px) {
+  body { font-size: 16px; }
+  .page { padding: 0 18px; }
+  .hero h1 { font-size: 26px; }
+  h2 { font-size: 21px; }
+  .nav-inner { gap: 12px; padding: 0 16px; }
+  .nav-title { font-size: 14px; }
+  .btn { padding: 7px 11px; font-size: 13px; }
+  figure.arch img,
+  figure.side-fig img { max-width: 100%; }
+}
+
+/* ==========================================================================
+   Real-robot sections (rebuttal): self-improvement strip + covariate shift
+   ========================================================================== */
+
+/* Real footage is 512px, not the 224px sim clips — don't pixelate it. */
+#real-robot .video-frame video,
+#recovery .video-frame video { image-rendering: auto; }
+
+/* --- widen past the 760px text column on large screens --- */
+/* Wide blocks (video strip, line charts) extend into the slack that exists
+   between main's 760px text measure and its grid column, which is entirely on
+   the right — the left side is the sidebar gutter. Bleeding symmetrically put
+   them under the sidebar. Slack = page width - (padding + sidebar + gap +
+   measure); clamped to 0 so it simply disappears once the column is tight. */
+/* .bleed is retained as a no-op: main now fills its column, so wide blocks
+   need no negative margins and cannot disagree with the section rules. */
+.bleed { margin-right: 0; }
+
+/* --- task / mode chips --- */
+.task-switch,
+.mode-switch {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 18px 0 20px;
+}
+.task-chip,
+.mode-chip {
+  font-family: var(--sans);
+  font-size: 13px;
+  font-weight: 500;
+  padding: 6px 12px;
+  border-radius: 999px;
+  border: 1px solid var(--border);
+  background: var(--bg);
+  color: var(--muted);
+  cursor: pointer;
+  transition: background .15s, color .15s, border-color .15s;
+}
+.task-chip:hover,
+.mode-chip:hover { border-color: var(--accent); color: var(--accent); }
+.task-chip.is-active,
+.mode-chip.is-active {
+  background: var(--accent-tint);
+  border-color: var(--accent);
+  color: var(--accent-hover);
+}
+.mode-chip .chip-count {
+  font-family: var(--mono);
+  font-size: 11.5px;
+  opacity: .75;
+  margin-left: 5px;
+}
+
+/* --- iteration strip --- */
+.si-stage { margin-top: 4px; }
+.si-strip {
+  display: grid;
+  /* --cols is set inline per strip: 5 real-robot iterations, 6 in LIBERO-10 */
+  grid-template-columns: repeat(var(--cols, 5), minmax(0, 1fr));
+  gap: 10px;
+  align-items: start;
+}
+.si-cell { margin: 0; text-align: center; }
+.si-cell .rollout-meta { margin-top: 8px; gap: 3px; }
+.si-cell .rollout-label { font-size: 12.5px; }
+.si-cell.is-baseline .rollout-label { color: var(--muted); }
+/* two-way link with the curve: hovering a clip marks its point on the chart,
+   hovering the chart marks the clip */
+.si-cell .video-frame { transition: box-shadow .15s ease; }
+.si-cell.is-hi .video-frame { box-shadow: 0 0 0 2px var(--accent); }
+.si-cell.is-hi .rollout-label { color: var(--accent); }
+
+/* --- status ring: red during the rollout, green once the task completes --- */
+.status-frame { position: relative; }
+.status-ring {
+  position: absolute;
+  inset: 0;
+  border-radius: 8px;
+  pointer-events: none;
+  box-shadow: inset 0 0 0 3px var(--ring, #f59e0b);
+  transition: box-shadow .25s ease;
+}
+/* amber = rollout in progress, green = task completed, red = failed episode.
+   Reserving red for actual failures is what lets a failing rollout and an
+   in-progress one be told apart at a glance. */
+.status-frame.is-done .status-ring { --ring: #22c55e; }
+.status-frame.is-failed .status-ring { --ring: #ef4444; }
+/* thin progress bar along the bottom of each clip */
+.status-bar {
+  position: absolute;
+  left: 0; bottom: 0;
+  height: 3px;
+  width: 100%;
+  transform: scaleX(0);
+  transform-origin: 0 50%;
+  background: #f59e0b;
+  pointer-events: none;
+  transition: background .25s ease;
+  will-change: transform;
+}
+.status-frame.is-done .status-bar { background: #22c55e; }
+.status-frame.is-failed .status-bar { background: #ef4444; }
+.si-time {
+  font-family: var(--mono);
+  font-size: 11.5px;
+  color: var(--muted);
+}
+.si-time.is-done { color: #166534; font-weight: 600; }
+
+/* --- success curve under the strip --- */
+.si-chart { margin: 16px 0 30px; position: relative; }
+/* the only chart with no figcaption of its own: its caption is the paragraph
+   just below the stage, so it supplies the gap */
+#si-chart { margin-bottom: 0; }
+.si-chart svg { display: block; margin: 0 auto; }
+.si-chart figcaption {
+  margin-top: 8px;
+  font-size: 13px;
+  color: var(--muted);
+  text-align: center;
+}
+.si-dot-active { filter: drop-shadow(0 0 3px rgba(67, 56, 202, .5)); }
+
+/* --- hover readout shared by every curve --- */
+.lc-guide {
+  stroke: var(--accent);
+  stroke-width: 1;
+  stroke-dasharray: 3 3;
+  opacity: .45;
+  pointer-events: none;
+}
+.lc-halo {
+  fill: #fff;
+  stroke-width: 2.5;
+  pointer-events: none;
+}
+.lc-tip {
+  position: absolute;
+  transform: translate(-50%, -100%);
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity .12s ease;
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  box-shadow: 0 6px 18px rgba(15, 23, 42, .12);
+  padding: 8px 10px;
+  font-family: var(--sans);
+  font-size: 12.5px;
+  line-height: 1.5;
+  color: var(--ink);
+  white-space: nowrap;
+  z-index: 2;
+}
+.lc-tip.is-on { opacity: 1; }
+.lc-tip b { display: block; font-size: 12px; color: var(--muted); font-weight: 600; margin-bottom: 3px; }
+.lc-tip span { display: flex; align-items: center; gap: 6px; }
+.lc-tip i { width: 9px; height: 3px; border-radius: 2px; flex: none; }
+.lc-tip em { margin-left: auto; padding-left: 14px; font-style: normal; font-weight: 600; font-family: var(--mono); }
+@media (hover: none) {
+  /* no hover on touch: the tip would stick after a tap */
+  .lc-tip { display: none; }
+}
+
+/* --- failure modes: BC failure beside the Q-Planning recovery --- */
+.cs-pair {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 340px));
+  justify-content: center;
+  gap: 18px;
+  align-items: start;
+}
+.cs-slot { margin: 0; }
+.cs-heading {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin: 0 0 8px;
+  font-family: var(--sans);
+  font-size: 13px;
+}
+.cs-slot .rollout-label { font-size: 13px; color: var(--muted); }
+.cs-note {
+  margin-top: 12px;
+  font-size: 13px;
+  line-height: 1.6;
+  color: var(--muted);
+  text-align: center;
+}
+
+/* --- misc results additions --- */
+.callout {
+  margin: 18px 0;
+  padding: 14px 16px;
+  border-left: 3px solid var(--accent);
+  background: var(--accent-tint);
+  border-radius: 0 8px 8px 0;
+  font-size: 15px;
+  line-height: 1.6;
+}
+table.results td.mk { text-align: center; font-size: 15px; }
+table.results td.mk.yes { color: #166534; }
+table.results td.mk.no  { color: #b91c1c; }
+.table-note {
+  font-size: 12.5px;
+  color: var(--muted);
+  line-height: 1.55;
+  margin-top: 8px;
+}
+.latency-details {
+  margin: 16px 0;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 12px 14px;
+  background: var(--bg-alt);
+}
+.latency-details summary {
+  cursor: pointer;
+  font-family: var(--sans);
+  font-size: 13.5px;
+  color: var(--accent);
+  font-weight: 500;
+}
+.latency-details[open] summary { margin-bottom: 12px; }
+
+@media (max-width: 640px) {
+  .cs-pair { grid-template-columns: 1fr; gap: 22px; }
+}
+@media (max-width: 720px) {
+  .si-strip { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px; }
+  .si-cell .rollout-label { font-size: 11.5px; }
+  .si-time { font-size: 10.5px; }
+}
+@media (max-width: 460px) {
+  .si-strip { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .status-ring, .status-bar { transition: none; }
+}
+
+/* --- line-chart typography: these read at ~930px wide, so the inherited
+       10.5px tick size was far too small --- */
+/* Charts render at 1:1 CSS pixels (no viewBox scaling), so these sizes are
+   what the reader actually sees — matched to the 17px body copy. */
+.lc-tick  { font-size: 16px; fill: var(--muted); font-family: var(--sans); }
+.lc-axis  { font-size: 16px; fill: var(--muted); font-family: var(--sans); }
+.lc-value {
+  font-size: 16px; font-weight: 600; fill: var(--ink); font-family: var(--sans);
+  paint-order: stroke fill; stroke: #fff; stroke-width: 4px; stroke-linejoin: round;
+}
+.lc-end {
+  font-size: 17px;
+  font-family: var(--sans);
+}
+/* Nothing is painted behind a label by default. The halo is added only to the
+   labels the placement search could not keep off a line — on the breadth chart
+   three suites sit within ~1.5pp and no position avoids every series. */
+.lc-end.has-halo {
+  paint-order: stroke fill;
+  stroke: #fff;
+  stroke-width: 6.5px;
+  stroke-linejoin: round;
+}
+.lc-end-strong { font-size: 17px; font-weight: 700; }
+
+/* ============ Margin notes ============ */
+.sr-only {
+  position: absolute;
+  width: 1px; height: 1px;
+  padding: 0; margin: -1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  clip-path: inset(50%);
+  white-space: nowrap;
+  border: 0;
+}
+.sn { white-space: nowrap; }   /* keep the term and its numeral together */
+.sn-ref {
+  font: inherit;
+  color: inherit;
+  background: none;
+  border: 0;
+  padding: 0;
+  cursor: pointer;
+  border-bottom: 1px dotted var(--accent);
+  white-space: normal;
+}
+.sn-ref:hover,
+.sn-ref[aria-expanded="true"] { color: var(--accent); }
+/* A filled numeral, not a bare superscript: the note has to advertise itself,
+   because on a phone it is the only place the definition exists. */
+.sn-mark {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 15px;
+  height: 15px;
+  padding: 0 3px;
+  margin-left: 3px;
+  border-radius: 999px;
+  background: var(--accent);
+  color: #fff;
+  font-family: var(--sans);
+  font-size: 10px;
+  font-weight: 700;
+  line-height: 1;
+  vertical-align: 4px;
+}
+.sn-ref:hover .sn-mark,
+.sn-ref[aria-expanded="true"] .sn-mark { background: var(--accent-hover); }
+.sn-ref:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; border-radius: 3px; }
+
+.sn-card {
+  position: absolute;
+  top: 0; left: 0;
+  z-index: 60;
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-left: 3px solid var(--accent);
+  border-radius: 8px;
+  box-shadow: 0 8px 24px rgba(15, 23, 42, .14);
+  padding: 10px 13px;
+  font-family: var(--sans);
+  font-size: 13px;
+  line-height: 1.55;
+  color: var(--ink);
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity .12s ease;
+}
+.sn-card.is-on { opacity: 1; visibility: visible; }
+/* Out in the gutter it should read as a margin note, not a popup. */
+.sn-card.is-margin {
+  background: transparent;
+  border: 0;
+  border-left: 2px solid var(--border);
+  border-radius: 0;
+  box-shadow: none;
+  padding: 1px 0 1px 13px;
+  font-size: 12.5px;
+  color: var(--muted);
+}
+.sn-card em { color: inherit; }
+@media (prefers-reduced-motion: reduce) {
+  .sn-card { transition: none; }
+}
+.lc-panel-title { font-size: 15px; font-weight: 600; fill: var(--muted); font-family: var(--sans); }
+
+/* Line charts are drawn at 1:1 CSS pixels, so they must NOT be stretched to
+   the container the way .chart-svg is — that would rescale their text again.
+   max-width is a safety net against a stale measurement overflowing. */
+.lc-svg {
+  display: block;
+  margin: 0 auto;
+  max-width: 100%;
+  height: auto;
+  font-family: var(--sans);
+}
+
+/* latency table: "fits / over" reads directly, where a bare % of an unstated
+   budget did not */
+.th-sub { font-weight: 400; font-size: 11.5px; color: var(--muted); }
+.fit, .over {
+  display: inline-block;
+  font-family: var(--sans);
+  font-size: 11px;
+  font-weight: 600;
+  padding: 1px 6px;
+  border-radius: 999px;
+  vertical-align: 1px;
+}
+.fit  { background: #dcfce7; color: #166534; border: 1px solid #86efac; }
+.over { background: #fee2e2; color: #991b1b; border: 1px solid #fca5a5; }
+.table-note .fit { font-size: 10.5px; }
+
+
+/* ============ Wide monitors ============
+   Centre the content column in the viewport rather than centring the
+   sidebar+content pair — with so little in the TOC, centring the pair pushes
+   the text visibly right of centre. The TOC then sits in the middle of the
+   left gutter, further left than pair-centring would put it. */
+@media (min-width: 1400px) {
+  .page {
+    max-width: none;
+    grid-template-columns: minmax(0, 1fr) var(--content-w) minmax(0, 1fr);
+    column-gap: 0;
+  }
+  #sidebar { grid-column: 1; justify-self: center; width: var(--sidebar-w); }
+  main { grid-column: 2; }
+  /* keep the nav flush with the content edges */
+  .nav-inner { max-width: var(--content-w); padding: 0; }
+}
+
+/* A ~870px measure needs slightly larger type to stay comfortable to read. */
+@media (min-width: 1000px) {
+  body { font-size: 18px; }
+  h2 { font-size: 27px; }   /* keep a clear 18 / 21 / 27 ladder */
+  h3 { font-size: 21px; }
+  section { margin: 104px 0; }
+  h3 { margin-top: 84px; }
+  h2 + h3, .lede + h3 { margin-top: 34px; }
+  .lc-tick, .lc-axis, .lc-value { font-size: 17px; }
+  .lc-ytitle { font-size: 16px; }
+  .lc-end { font-size: 18px; }
+}
+/* y-axis title: horizontal, above the axis, so it uses vertical space rather
+   than eating into the plot width */
+/* y-axis title is HTML, not SVG text, so it can carry a margin note; it is
+   positioned over the figure by js/main.js at the plot's top-left */
+.lc-ytitle {
+  position: absolute;
+  left: 2px;
+  /* above .lc-tip: if the hover card ever reaches this high it must not bury
+     the axis title, which carries a clickable note */
+  z-index: 3;
+  font-family: var(--sans);
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--muted);
+  line-height: 1.2;
+}

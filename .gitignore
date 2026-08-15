@@ -1,0 +1,6 @@
+# macOS Finder metadata — created automatically whenever a folder is opened,
+# and regenerated after deletion, so it is ignored rather than removed.
+.DS_Store
+
+# AppleDouble resource forks, left behind when copying to non-HFS volumes
+._*
