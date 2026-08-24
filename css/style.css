@@ -800,7 +800,7 @@ footer a:hover { color: var(--accent); }
 .si-time.is-done { color: #166534; font-weight: 600; }
 
 /* --- success curve under the strip --- */
-.si-chart { margin: 6px 0 30px; position: relative; }
+.si-chart { margin: 2px 0 30px; position: relative; }
 /* the only chart with no figcaption of its own: its caption is the paragraph
    just below the stage, so it supplies the gap */
 #si-chart { margin-bottom: 0; }

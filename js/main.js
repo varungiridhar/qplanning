@@ -495,7 +495,7 @@
   }
 
   function drawChart(fig, cfg, state, W) {
-    const mL = 58, mR = 20, mT = 48, mB = 56, gapPx = 28;
+    const mL = 58, mR = 20, mT = 28, mB = 56, gapPx = 28;
     const panels = cfg.panels || [{ ymin: cfg.ymin, ymax: cfg.ymax, ticks: cfg.ticks, h: 1 }];
     const bodyH = cfg.height || 430;
     const totalH = bodyH * panels.reduce((a, p) => a + p.h, 0) + gapPx * (panels.length - 1);
