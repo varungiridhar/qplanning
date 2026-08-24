@@ -1112,3 +1112,10 @@ table.results td.mk.no  { color: #b91c1c; }
   color: var(--muted);
   line-height: 1.2;
 }
+
+/* Latency table (Appendix E parity): percentage column. The paper prints these
+   plain; the red tint only restates what a value >100 already says — the step
+   misses the replan budget. Text-only, so it cannot be confused with the
+   .fit/.over pills used elsewhere. */
+table.results td.pct-over { color: #991b1b; font-weight: 600; }
+table.results tr.dep-row td { background: var(--accent-tint); font-weight: 600; }

@@ -432,7 +432,7 @@
   // Versioned like the css/js: this file names the clip files, so a cached
   // copy can point at a filename that no longer exists. Bump with ?v= in
   // index.html whenever real_world.json or a clip filename changes.
-  fetch('assets/data/real_world.json?v=20')
+  fetch('assets/data/real_world.json?v=27')
     .then(r => r.json())
     .then(RW => {
       initSelfImprovement(RW);
@@ -870,15 +870,15 @@
         band: ['qp', 'sft'],
         markers: 'qp', markerR: 5.5, plainMarkers: true,
         valueLabels: 'all',
-        yNote: 'Fraction of 20 evaluation seeds in which the task is completed.',
+        yNote: 'Fraction of the 20 episodes collected at that iteration that succeed.',
         aria: 'Success rate against self-improvement iteration for ' + task.label,
         onHover: (i) => cells.forEach(c => c.clip.fig.classList.toggle('is-hi', c.idx === i)),
       });
 
       cells = mountStrip({
         strip, group: 'si', clips: task.clips, dir: VID_DIR,
-        labelFor: (c) => c.iter === 0
-          ? '<span class="si-iter">Iteration&nbsp;0</span><br/>frozen BC'
+        labelFor: (c) => c.iter === 1
+          ? '<span class="si-iter">Iteration&nbsp;1</span><br/>before any Q update'
           : '<span class="si-iter">Iteration&nbsp;' + c.iter + '</span>',
         onStatus: (idx, done) => {
           const d = chart.dots[idx];
@@ -890,8 +890,9 @@
       // No KaTeX delimiters in here: auto-render already ran before this is injected.
       capEl.innerHTML =
         '<strong>' + task.label + ': ' + task.headline +
-        ' over five iterations of the self-improvement loop.</strong> ' +
-        'Each iteration fine-tunes only <em>Q</em>, both on successes and failures. The grey line is ' +
+        ' in five iterations of the self-improvement loop.</strong> ' +
+        'Iteration 1 deploys the planner before any Q update; each iteration then fine-tunes only ' +
+        '<em>Q</em>, on successes and failures alike. The grey line is ' +
         note(2, 'SFT on successes',
           'Supervised finetuning on successful autonomously collected episodes.') +
         '. Clips restart together and turn green on completion, so the order they turn green is the ' +
@@ -1000,7 +1001,7 @@
       band: ['qp', 'sft'],
       markers: 'qp', markerR: 5,
       valueLabels: 'ends',
-      yNote: 'Fraction of evaluation seeds completed, over 10 tasks &times; 20 seeds.',
+      yNote: 'Success over 10 tasks &times; 20 episodes per task.',
       aria: 'Q-Planning against five other self-improvement methods over ten online iterations on LIBERO-10.',
       // Caption the curve, not the clips: this sits directly under the plot, so
       // a caption about the videos above read as if it described the axes.
@@ -1040,7 +1041,7 @@
       ymin: 80, ymax: 101,
       ticks: [80, 85, 90, 95, 100],
       markers: 'robotwin', markerR: 4,
-      yNote: 'Fraction of evaluation seeds completed, 20 seeds per task, averaged over each suite.',
+      yNote: 'Success over 20 episodes per task, averaged over each suite.',
       aria: 'Success rate against self-improvement iteration for four LIBERO suites and RoboTwin.',
       caption: '<strong>The online column of the table above, iteration by iteration.</strong>',
     });
